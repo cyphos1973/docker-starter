@@ -1,6 +1,6 @@
 #Docker-starter without symfony
 
-![alt text](phpinfo.pngraw=true "Default page")
+![alt text](phpinfo.png?raw=true "Default page")
 
 - apache
 - mysql
