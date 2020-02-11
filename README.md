@@ -1,4 +1,4 @@
-Docker-starter without symfony
+#Docker-starter without symfony
 
 - apache
 - mysql
