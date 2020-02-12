@@ -15,8 +15,14 @@ RUN apt-get update \
     zlib1g-dev \
     sudo ssh-client
 
-RUN docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install pdo pdo_mysql zip
+#-------------------------------------#
+#   extensions PHP
+#-------------------------------------#
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd pdo pdo_mysql zip amqp pdo_pgsql pdo_firebird pdo_sqlsrv opcache memcached xdebug
+
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
@@ -68,19 +74,6 @@ RUN pecl install apcu-${APCU_VERSION} && docker-php-ext-enable apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/php.ini
 RUN echo "apc.enable_cli=1" > /usr/local/etc/php/php.ini
 RUN echo "apc.enable=1" > /usr/local/etc/php/php.ini
-
-#-------------------------------------#
-#   OPCACHE
-#-------------------------------------#
-RUN docker-php-ext-install opcache
-COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-
-
-#-------------------------------------#
-# XDEBUG
-#-------------------------------------#
-RUN pecl install xdebug \
-        && docker-php-ext-enable xdebug
 
 #-------------------------------------#
 # GROUPS AND USERS
