@@ -1,6 +1,6 @@
 include .env
 DOCKER_COMPOSE		= docker-compose
-SYMFONY			= $(DOCKER_COMPOSE) exec -T php /usr/bin/entrypoint make --directory=app/
+
 
 
 build:
