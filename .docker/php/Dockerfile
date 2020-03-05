@@ -75,6 +75,7 @@ RUN apt-get update && apt-get install yarn
 #USER www-data
 
 WORKDIR /var/www/html
+RUN usermod -u 1000 www-data
 EXPOSE 9000
 CMD ["php-fpm"]
 
