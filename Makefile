@@ -16,7 +16,7 @@ stop:
 	$(DOCKER_COMPOSE) stop
 
 stop-all:
-	 docker stop $$(sudo docker ps -a -q)
+	 docker stop $$(docker ps -a -q)
 
 exec:
 	docker exec -it $(CONTAINER_NAME)_php bash
@@ -34,8 +34,8 @@ install:
 	docker exec -it $(CONTAINER_NAME)_php bash
 
 stop-remove-all:
-	sudo docker stop $$(sudo docker ps -a -q)
-	sudo docker rm $$(sudo docker ps -a -q)
-	sudo docker rmi $$(sudo docker images -a -q) -f
-	sudo docker network rm $$(sudo docker images -a -q)
+	sudo docker stop $$(docker ps -a -q)
+	docker rm $$(docker ps -a -q)
+	docker rmi $$(docker images -a -q) -f
+	docker network rm $$(docker images -a -q)
 
