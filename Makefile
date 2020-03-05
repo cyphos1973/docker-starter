@@ -18,6 +18,9 @@ stop:
 stop-all:
 	 docker stop $$(sudo docker ps -a -q)
 
+exec:
+	docker exec -it $(CONTAINER_NAME)_php bash
+
 down:
 	$(DOCKER_COMPOSE) down
 
