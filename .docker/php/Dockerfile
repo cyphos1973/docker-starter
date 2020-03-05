@@ -6,6 +6,9 @@ ARG PHP_VERSION=7.1.33
 FROM php:${PHP_VERSION}-fpm
 MAINTAINER Gilles BOUCHONNEAU <gilles.bouchonneau@gmail.com>
 
+#-------------------------------------#
+#   Install and update packages
+#-------------------------------------#
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion \
     git apt-transport-https apt-utils \
@@ -17,7 +20,7 @@ RUN apt-get update \
     sudo ssh-client
 
 #-------------------------------------#
-#   extensions PHP
+#   Extensions PHP
 #-------------------------------------#
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
@@ -26,20 +29,25 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
 
 
 COPY php.ini /usr/local/etc/php/php.ini
-
+#-------------------------------------#
+#   Install phpunit
+#-------------------------------------#
 RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-7.phar \
     && mv phpunit*.phar phpunit.phar \
     && chmod +x phpunit.phar \
     && mv phpunit.phar /usr/local/bin/phpunit \
     ./phpunit --version
 
-
+#-------------------------------------#
+#   Install locales
+#-------------------------------------#
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen \
     && echo "dev ALL=(ALL) ALL" > /etc/sudoers
+
 #-------------------------------------#
-# CLEANING
+#  CLEANING
 #-------------------------------------#
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -67,12 +75,9 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install yarn
 
-
 #-------------------------------------#
-# GROUPS AND USERS
+#   Permissions and more !
 #-------------------------------------#
-#RUN chown -R www-data:www-data /home/wwwroot/app
-#USER www-data
 
 WORKDIR /var/www/html
 RUN usermod -u 1000 www-data
@@ -80,5 +85,5 @@ EXPOSE 9000
 CMD ["php-fpm"]
 
 #-------------------------------------#
-# FIN
+# End
 #-------------------------------------#
