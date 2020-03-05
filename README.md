@@ -55,7 +55,7 @@ Contribution are always welcome and recommended! Here is how:
 
 1: Clone to your machine
  ```bash
- $ git clone https://github.com/YOUR_USERNAME/docker-starter.git
+ $ git clone https://github.com/cyphos1973/docker-starter.git
  ```
 2: Create a new branch
  ```bash
