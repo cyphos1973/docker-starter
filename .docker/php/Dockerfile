@@ -6,8 +6,6 @@ ARG PHP_VERSION=7.1.33
 FROM php:${PHP_VERSION}-fpm
 MAINTAINER Gilles BOUCHONNEAU <gilles.bouchonneau@gmail.com>
 
-#ARG APCU_VERSION=5.1.18
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion \
     git apt-transport-https apt-utils \
