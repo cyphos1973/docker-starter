@@ -6,7 +6,7 @@ ARG PHP_VERSION=7.1.33
 FROM php:${PHP_VERSION}-fpm
 MAINTAINER Gilles BOUCHONNEAU <gilles.bouchonneau@gmail.com>
 
-ARG APCU_VERSION=5.1.18
+#ARG APCU_VERSION=5.1.18
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion \
@@ -24,7 +24,7 @@ RUN apt-get update \
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions gd pdo pdo_mysql zip amqp pdo_pgsql pdo_firebird pdo_sqlsrv opcache memcached xdebug
+    install-php-extensions gd pdo pdo_mysql zip amqp pdo_pgsql pdo_firebird pdo_sqlsrv opcache memcached xdebug apcu
 
 
 COPY php.ini /usr/local/etc/php/php.ini
@@ -70,13 +70,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install yarn
 
-#-------------------------------------#
-#   APCU
-#-------------------------------------#
-RUN pecl install apcu-${APCU_VERSION} && docker-php-ext-enable apcu
-RUN echo "extension=apcu.so" > /usr/local/etc/php/php.ini
-RUN echo "apc.enable_cli=1" > /usr/local/etc/php/php.ini
-RUN echo "apc.enable=1" > /usr/local/etc/php/php.ini
 
 #-------------------------------------#
 # GROUPS AND USERS
