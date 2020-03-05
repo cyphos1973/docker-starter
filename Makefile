@@ -1,5 +1,5 @@
 include .env
-DOCKER_COMPOSE		= docker-compose
+
 
 
 
@@ -34,7 +34,7 @@ install:
 	docker exec -it $(CONTAINER_NAME)_php bash
 
 stop-remove-all:
-	sudo docker stop $$(docker ps -a -q)
+	docker stop $$(docker ps -a -q)
 	docker rm $$(docker ps -a -q)
 	docker rmi $$(docker images -a -q) -f
 	docker system prune -f
