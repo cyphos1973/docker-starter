@@ -71,10 +71,10 @@ RUN apt-get update && apt-get install yarn
 #-------------------------------------#
 # GROUPS AND USERS
 #-------------------------------------#
-WORKDIR /home/wwwroot/app
 #RUN chown -R www-data:www-data /home/wwwroot/app
 #USER www-data
 
+WORKDIR /var/www/html
 EXPOSE 9000
 CMD ["php-fpm"]
 
