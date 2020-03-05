@@ -28,7 +28,6 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
 
 
 COPY php.ini /usr/local/etc/php/php.ini
-COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
 
 RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-7.phar \
     && mv phpunit*.phar phpunit.phar \
