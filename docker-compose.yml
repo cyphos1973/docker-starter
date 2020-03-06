@@ -5,6 +5,7 @@ services:
         image: httpd:2.4.41
         ports:
             - ${APACHE_PORT}:80
+            - 443:443
         volumes:
             - ./${DIRECTORY_PROJECT}:/var/www/html
             - .docker/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
