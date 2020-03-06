@@ -2,6 +2,8 @@
 Docker-starter is a reference app created to show how create the containers easier.
 
 ![alt text](phpinfo.png?raw=true "Default page")
+# Architectural diagramm
+![alt text](diagramm.png?raw=true "Default page")
 ## Installations instructions
 ### Project requirements
 - apache (latest version)
