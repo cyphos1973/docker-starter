@@ -50,3 +50,6 @@ db-test: .env
 	$(DOCKER_APP) bin/console doctrine:schema:drop --force --no-interaction
 	$(DOCKER_APP) bin/console doctrine:schema:create --no-interaction
 	$(DOCKER_APP) bin/console doctrine:fixtures:load --no-interaction --purge-with-truncate -vvv
+
+phpcs:
+	$(DOCKER_APP) php vendor/bin/php-cs-fixer fix src/
