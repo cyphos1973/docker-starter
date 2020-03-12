@@ -40,3 +40,6 @@ stop-remove-all:
 
 vendor:
 	$(DOCKER_APP) composer install
+
+node_modules:
+	$(DOCKER_APP) yarn install
