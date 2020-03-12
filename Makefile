@@ -43,3 +43,10 @@ vendor:
 
 node_modules:
 	$(DOCKER_APP) yarn install
+
+db-test: .env
+	$(DOCKER_APP) bin/console doctrine:database:drop --if-exists --force
+	$(DOCKER_APP) bin/console doctrine:database:create --if-not-exists
+	$(DOCKER_APP) bin/console doctrine:schema:drop --force --no-interaction
+	$(DOCKER_APP) bin/console doctrine:schema:create --no-interaction
+	$(DOCKER_APP) bin/console doctrine:fixtures:load --no-interaction --purge-with-truncate -vvv
