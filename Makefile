@@ -1,5 +1,7 @@
 include .env
 
+DOCKER_APP        = docker-compose exec php
+
 build:
 	$(DOCKER_COMPOSE) build
 
@@ -26,7 +28,7 @@ prune:
 
 install:
 	$(DOCKER_COMPOSE) build --build-arg PHP_VERSION=$(PHP_VERSION)
-	$(DOCKER_COMPOSE) pull
+	#$(DOCKER_COMPOSE) pull
 	$(DOCKER_COMPOSE) up -d
 	docker exec -it $(CONTAINER_NAME)_php bash
 
@@ -36,3 +38,5 @@ stop-remove-all:
 	docker rmi $$(docker images -a -q) -f
 	docker system prune -f
 
+vendor:
+	$(DOCKER_APP) composer install
